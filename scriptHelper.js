@@ -46,17 +46,32 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         return 0;
     };
     // list.style.visibility = "";
-    // let launchStatus = document.getElementbyId("launchStatus");
+    let launchStatus = document.getElementById("launchStatus");
     // add pilot and copilot names to list
-    // document.getElementbyId("pilotStatus").innerHtml = `Pilot ${pilotName.value} is ready for launch.`;
-    // document.getElementbyId("copilotStatus").innerHtml = `CoPilot ${copilotName.value} is ready for launch.`;
+    document.getElementById("pilotStatus").innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
+    document.getElementById("copilotStatus").innerHTML = `CoPilot ${copilotName.value} is ready for launch.`;
     // validate fuel level. must be >= 10,000L. if under 10,000, change faulty items to visible, fuel status to not ready, launchStatus to red and 
     // "Shuttle not ready for launch"
     if (fuelLevel.value < 10000) {
         list.style.visibility = "";
-        // document.getElementbyId("fuelStatus").innerHtml = "Fuel level too low for launch";
-        // launchStatus.style.color = "red";
-        // launchStatus.innerHtml = "Shuttle not ready for launch";
+        document.getElementById("fuelStatus").innerHTML = "Fuel level too low for launch";
+        launchStatus.style.color = "red";
+        launchStatus.innerHTML = "Shuttle Not Ready For Launch";
+        return 0;
+    };
+    // validate cargo mass, must be less than 10,000. if over, change list to visible, cargoStatus to too high, etc.
+    if (cargoLevel.value > 10000) {
+        list.style.visibility = "";
+        document.getElementById("cargoStatus").innerHTML = "Cargo mass too high for launch";
+        launchStatus.style.color = "red";
+        launchStatus.innerHTML = "Shuttle Not Ready For Launch";
+        return 0;
+    };
+    // if fuel level and cargo level, ok, change launch status to green and "Shuttle is Ready for Launch"
+    if (cargoLevel.value <= 10000 && fuelLevel.value >= 10000) {
+        launchStatus.style.color = "green";
+        launchStatus.innerHTML = "Shuttle is Ready for Launch";
+        return 0;
     };
 };
 
