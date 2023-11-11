@@ -2,6 +2,21 @@
 
 // require('cross-fetch/polyfill');
 
+async function myFetch() {
+    let planetsReturned;
+
+    let response = await fetch("https://handlers.education.launchcode.org/static/planets.json");
+    planetsReturned = await response.json();
+
+    return planetsReturned;
+}
+
+//expect planets to be array of objects
+function pickPlanet(planets) {
+   return planets[Math.floor(Math.random() * planets.length)];
+};
+
+
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
     /*
@@ -15,18 +30,18 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                  </ol>
                  <img src="">
     */
-   document.getElementById.innerHTML = `
+   document.getElementById("missionTarget").innerHTML = `
    <h2>Mission Destination</h2>
    <ol>
-       <li>Name: </li>
-       <li>Diameter: </li>
+       <li>Name: ${name}</li>
+       <li>Diameter: ${diameter}</li>
        <li>Star: ${star}</li>
-       <li>Distance from Earth: </li>
-       <li>Number of Moons: </li>
+       <li>Distance from Earth: ${distance}</li>
+       <li>Number of Moons: ${moons}</li>
    </ol>
-   <img src="">
+   <img src="${imageUrl}">
    `;
- }
+ };
  
  function validateInput(testInput) {
     let output;
@@ -92,21 +107,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     };
 };
 
- 
- async function myFetch() {
-     let planetsReturned;
- 
-     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
-            response.json();
-         });
- 
-     return planetsReturned;
- }
- 
- //expect planets to be array of objects
- function pickPlanet(planets) {
-    return planets[Math.floor(Math.random() * planets.length)];
- }
+
  
 
 
