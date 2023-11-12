@@ -69,7 +69,6 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         return 0;
     } else if (fuelValidation === "Not a Number" || cargoValidation === "Not a Number") {
         window.alert("Make sure to enter valid information for each field!");
-        return 0;
     };
     // list.style.visibility = "";
     let launchStatus = document.getElementById("launchStatus");
@@ -83,19 +82,20 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         document.getElementById("fuelStatus").innerHTML = "Fuel level too low for launch";
         launchStatus.style.color = "red";
         launchStatus.innerHTML = "Shuttle Not Ready for Launch";
-        return 0;
+    } else {
+        document.getElementById("fuelStatus").innerHTML = "Fuel level high enough for launch";
     };
+
     // validate cargo mass, must be less than 10,000. if over, change list to visible, cargoStatus to too high, etc.
     if (cargoLevel > 10000) {
         list.style.visibility = "";
         document.getElementById("cargoStatus").innerHTML = "Cargo mass too heavy for launch";
         launchStatus.style.color = "red";
         launchStatus.innerHTML = "Shuttle Not Ready for Launch";
-        if(fuelLevel >= 10000) {
-            document.getElementById("fuelStatus").innerHTML = "Fuel level high enough for launch";
-        }
-        return 0;
+    } else {
+        document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
     };
+    
     // if fuel level and cargo level, ok, change launch status to green and "Shuttle is Ready for Launch"
     if (cargoLevel <= 10000 && fuelLevel >= 10000) {
         list.style.visibility = "";
